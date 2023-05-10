@@ -47,7 +47,7 @@ function App() {
 
     function handleValueChanged(v) {
         console.log(v);
-        const nums = v.replace(/(\r\n|\n|\r)/gm, " ").split(' ').filter(c => c != '\n').map(n => parseInt(n, 16)).filter(n => n != NaN);
+        const nums = v.replace(/(\r\n|\n|\r)/gm, " ").split(' ').filter(c => c != '\n').map(n => parseInt(n, 16)).filter(n => n !== NaN);
         console.log(nums.map(n => n.toString(16)));
         let instructions = "";
 
