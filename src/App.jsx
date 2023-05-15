@@ -66,8 +66,8 @@ function App() {
 
                     if(i + 1 >= nums.length) return;
 
-                    const rA = nums[i + 1] & 0xF;
-                    const rB = nums[i + 1] >>> 4;
+                    const rA = nums[i + 1] >>> 4;
+                    const rB = nums[i + 1] & 0xF;
 
                     if(rA !== 0xf && rB !== 0xf)
                         instructions += registers[rA] + ", " + registers[rB] + "\n";
@@ -98,8 +98,8 @@ function App() {
 
                     if(i + 3 >= nums.length) return;
 
-                    const rA = nums[i + 1] & 0xF;
-                    const rB = nums[i + 1] >>> 4;
+                    const rB = nums[i + 1] & 0xF;
+                    const rA = nums[i + 1] >>> 4;
 
                     const B3 = nums[i + 3];
                     const B2 = nums[i + 2];
