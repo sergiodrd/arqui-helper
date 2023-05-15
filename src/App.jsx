@@ -101,19 +101,28 @@ function App() {
                     const rA = nums[i + 1] & 0xF;
                     const rB = nums[i + 1] >>> 4;
 
-                    if(rA !== 0xf && rB !== 0xf)
-                        instructions += registers[rA] + ", " + registers[rB] + ", ";
-                    else if(rA !== 0xf)
-                        instructions += registers[rA] + ", ";
-                    else if(rB !== 0xf)
-                        instructions += registers[rB] + ", ";
-
                     const B3 = nums[i + 3];
                     const B2 = nums[i + 2];
 
                     const num = (B3 << 8) | B2;
+                    const numstr = "0x" + num.toString(16);
 
-                    instructions += "0x" + num.toString(16) + "\n";
+                    if(mnemonic === "rmmov") {
+                        instructions += registers[rB] + "+" + numstr + ", " + registers[rA] + "\n";
+                    }
+                    else if(mnemonic === "mrmov") {
+                        instructions += registers[rA] + ", " + registers[rB] + "+" + numstr + "\n";
+                    }
+                    else {
+                        if(rA !== 0xf && rB !== 0xf)
+                            instructions += registers[rA] + ", " + registers[rB] + ", ";
+                        else if(rA !== 0xf)
+                            instructions += registers[rA] + ", ";
+                        else if(rB !== 0xf)
+                            instructions += registers[rB] + ", ";
+                        instructions += numstr + "\n";
+                    }
+
                     i += 4;
                     break;
                 }
@@ -127,6 +136,7 @@ function App() {
         <>
         <div>
             <h1>y86 disas</h1>
+            <p>(pssst... destination in the left, source in the right)</p>
         </div>
         <div>
             <ByteInput onValueChanged={handleValueChanged} />
